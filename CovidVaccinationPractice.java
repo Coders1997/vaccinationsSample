@@ -26,7 +26,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class CovidVaccinationPractice {
 
 	public static void log(String output) throws IOException {
-		String filepath = "C:\\\\Docs\\vaccinationDemo.txt";
+		String filepath = "C:\\Users\\User\\Downloads\\Selenium_Maven\\target\\SampleDocs\\VaccinationSample.txt";
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(new FileWriter(filepath, true), true);
@@ -43,8 +43,8 @@ public class CovidVaccinationPractice {
 	public static void main(String[] args) throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 
-		// WebDriverManager.chromedriver().setup();
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\Documents\\ChromeDriver\\chromedriver.exe");
+	     WebDriverManager.chromedriver().setup();
+		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\Documents\\ChromeDriver\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(3));
 		Actions actions = new Actions(driver);
@@ -54,7 +54,7 @@ public class CovidVaccinationPractice {
 		driver.manage().timeouts().implicitlyWait(Duration.ofMinutes(2));
 		String country = "United Kingdom";
 		searchOnGoogle(driver, "covid cases in India");
-		scrollBottom(driver, jse, actions, wait);
+		scrollBottomToVaccinationsGraph(driver, jse, actions, wait);
 		country = selectCountry(driver, wait, country);
 		log("Vaccinations data for country " + country);
 		fetchVaccinationsData(driver, actions);
@@ -103,7 +103,7 @@ public class CovidVaccinationPractice {
 		Thread.sleep(10000);
 	}
 
-	public static void scrollBottom(WebDriver driver, JavascriptExecutor jse, Actions actions, WebDriverWait wait)
+	public static void scrollBottomToVaccinationsGraph(WebDriver driver, JavascriptExecutor jse, Actions actions, WebDriverWait wait)
 			throws InterruptedException {
 		WebElement element = driver.findElement(By.xpath(
 				"//div[contains(text(),'Vaccinations')]/ancestor::div[contains(@class,'TzHB6b cLjAic')]/descendant::div[@jsaction='yjWrye' and contains(@aria-label,'country')]//div[@jsname='c6cQV']"));
