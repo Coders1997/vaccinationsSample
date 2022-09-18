@@ -25,8 +25,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class CovidVaccinationPractice {
 
+	public static final String filepath = "C:\\Users\\User\\Downloads\\Selenium_Maven\\target\\SampleDocs\\VaccinationSample.txt";
+
 	public static void log(String output) throws IOException {
-		String filepath = "C:\\Users\\User\\Downloads\\Selenium_Maven\\target\\SampleDocs\\VaccinationSample.txt";
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(new FileWriter(filepath, true), true);
@@ -42,9 +43,9 @@ public class CovidVaccinationPractice {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
-
-	     WebDriverManager.chromedriver().setup();
-		//System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\Documents\\ChromeDriver\\chromedriver.exe");
+		PrintWriter out = new PrintWriter(new FileWriter(filepath, false), true);
+		out.print(" ");
+		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(3));
 		Actions actions = new Actions(driver);
@@ -103,8 +104,8 @@ public class CovidVaccinationPractice {
 		Thread.sleep(10000);
 	}
 
-	public static void scrollBottomToVaccinationsGraph(WebDriver driver, JavascriptExecutor jse, Actions actions, WebDriverWait wait)
-			throws InterruptedException {
+	public static void scrollBottomToVaccinationsGraph(WebDriver driver, JavascriptExecutor jse, Actions actions,
+			WebDriverWait wait) throws InterruptedException {
 		WebElement element = driver.findElement(By.xpath(
 				"//div[contains(text(),'Vaccinations')]/ancestor::div[contains(@class,'TzHB6b cLjAic')]/descendant::div[@jsaction='yjWrye' and contains(@aria-label,'country')]//div[@jsname='c6cQV']"));
 		wait.until(ExpectedConditions.elementToBeClickable(element));
@@ -118,7 +119,7 @@ public class CovidVaccinationPractice {
 	}
 
 	public static void fetchVaccinationsData(WebDriver driver, Actions actions) throws IOException {
-		List<WebElement> points = driver.findElements(By.xpath("(//div[@class='uch-xa'])[2]/span"));
+		List<WebElement> points = driver.findElements(By.xpath("(//div[@class='uch-xa'])[2]/child::span"));
 		for (WebElement point : points) {
 			actions.moveToElement(point).perform();
 			// Thread.sleep(10000);
